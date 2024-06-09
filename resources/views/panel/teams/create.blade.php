@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.teams.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route("panel.teams.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="payment_methoods">{{ trans('cruds.team.fields.payment_methood') }}</label>

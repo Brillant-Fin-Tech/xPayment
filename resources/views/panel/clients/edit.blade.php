@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.clients.update", [$client->id]) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route("panel.clients.update", [$client->id]) }}" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             <div class="form-group">
@@ -39,6 +39,31 @@
     </div>
 </div>
 
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#client_client_payment_methods" role="tab" data-toggle="tab">
+                {{ trans('cruds.clientPaymentMethod.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#client_client_sites" role="tab" data-toggle="tab">
+                {{ trans('cruds.clientSite.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="client_client_payment_methods">
+            @includeIf('panel.clients.relationships.clientClientPaymentMethods', ['clientPaymentMethods' => $client->clientClientPaymentMethods])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="client_client_sites">
+            @includeIf('panel.clients.relationships.clientClientSites', ['clientSites' => $client->clientClientSites])
+        </div>
+    </div>
+</div>
 
 
 @endsection

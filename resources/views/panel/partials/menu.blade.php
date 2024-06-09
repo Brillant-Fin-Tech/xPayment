@@ -128,16 +128,6 @@
                             </a>
                         </li>
                     @endcan
-                    @can('client_payment_method_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("panel.client-payment-methods.index") }}" class="c-sidebar-nav-link {{ request()->is("panel/client-payment-methods") || request()->is("panel/client-payment-methods/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.clientPaymentMethod.title') }}
-                            </a>
-                        </li>
-                    @endcan
                     @can('client_site_access')
                         <li class="c-sidebar-nav-item">
                             <a href="{{ route("panel.client-sites.index") }}" class="c-sidebar-nav-link {{ request()->is("panel/client-sites") || request()->is("panel/client-sites/*") ? "c-active" : "" }}">
@@ -145,26 +135,6 @@
 
                                 </i>
                                 {{ trans('cruds.clientSite.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('client_site_payment_method_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("panel.client-site-payment-methods.index") }}" class="c-sidebar-nav-link {{ request()->is("panel/client-site-payment-methods") || request()->is("panel/client-site-payment-methods/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.clientSitePaymentMethod.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('client_site_token_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("panel.client-site-tokens.index") }}" class="c-sidebar-nav-link {{ request()->is("panel/client-site-tokens") || request()->is("panel/client-site-tokens/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.clientSiteToken.title') }}
                             </a>
                         </li>
                     @endcan

@@ -55,7 +55,7 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="payment_method_client_payment_methods">
-            @includeIf('admin.paymentMethods.relationships.paymentMethodClientPaymentMethods', ['clientPaymentMethods' => $paymentMethod->paymentMethodClientPaymentMethods])
+            @includeIf('panel.paymentMethods.relationships.paymentMethodClientPaymentMethods', ['clientPaymentMethods' => $paymentMethod->paymentMethodClientPaymentMethods])
         </div>
     </div>
 </div>

@@ -72,9 +72,12 @@ class ClientSiteController extends Controller
 
     public function store(StoreClientSiteRequest $request)
     {
-        $clientSite = ClientSite::create($request->all());
 
-        return redirect()->route('panel.client-sites.index');
+        if (!ClientSite::where("domain", $request->domain)->exists()) {
+            $clientSite = ClientSite::create($request->all());
+        }
+        return redirect()->route('panel.clients.show', $request->client_id);
+
     }
 
     public function edit(ClientSite $clientSite)

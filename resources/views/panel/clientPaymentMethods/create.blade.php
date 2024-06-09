@@ -7,32 +7,9 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.client-payment-methods.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route("panel.client-payment-methods.store") }}" enctype="multipart/form-data">
             @csrf
-            <div class="form-group">
-                <label for="name">{{ trans('cruds.clientPaymentMethod.fields.name') }}</label>
-                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', '') }}">
-                @if($errors->has('name'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('name') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.clientPaymentMethod.fields.name_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required" for="client_id">{{ trans('cruds.clientPaymentMethod.fields.client') }}</label>
-                <select class="form-control select2 {{ $errors->has('client') ? 'is-invalid' : '' }}" name="client_id" id="client_id" required>
-                    @foreach($clients as $id => $entry)
-                        <option value="{{ $id }}" {{ old('client_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('client'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('client') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.clientPaymentMethod.fields.client_helper') }}</span>
-            </div>
+            <input  name="client_id" value="{{ request()->input('client') }}" type="hidden">
             <div class="form-group">
                 <label class="required" for="payment_method_id">{{ trans('cruds.clientPaymentMethod.fields.payment_method') }}</label>
                 <select class="form-control select2 {{ $errors->has('payment_method') ? 'is-invalid' : '' }}" name="payment_method_id" id="payment_method_id" required>
@@ -49,7 +26,7 @@
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
-                    {{ trans('global.save') }}
+                    {{ trans('global.add') }}
                 </button>
             </div>
         </form>

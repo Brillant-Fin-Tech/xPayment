@@ -79,7 +79,7 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="payer_transactions">
-            @includeIf('admin.payers.relationships.payerTransactions', ['transactions' => $payer->payerTransactions])
+            @includeIf('panel.payers.relationships.payerTransactions', ['transactions' => $payer->payerTransactions])
         </div>
     </div>
 </div>

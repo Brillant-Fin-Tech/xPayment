@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.client-site-tokens.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route("panel.client-site-tokens.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label class="required" for="token">{{ trans('cruds.clientSiteToken.fields.token') }}</label>

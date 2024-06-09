@@ -78,10 +78,10 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="reseller_transactions">
-            @includeIf('admin.teams.relationships.resellerTransactions', ['transactions' => $team->resellerTransactions])
+            @includeIf('panel.teams.relationships.resellerTransactions', ['transactions' => $team->resellerTransactions])
         </div>
         <div class="tab-pane" role="tabpanel" id="reseller_payers">
-            @includeIf('admin.teams.relationships.resellerPayers', ['payers' => $team->resellerPayers])
+            @includeIf('panel.teams.relationships.resellerPayers', ['payers' => $team->resellerPayers])
         </div>
     </div>
 </div>

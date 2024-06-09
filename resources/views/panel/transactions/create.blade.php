@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.transactions.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route("panel.transactions.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label class="required">{{ trans('cruds.transaction.fields.type') }}</label>

@@ -68,10 +68,10 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="client_site_client_site_tokens">
-            @includeIf('admin.clientSites.relationships.clientSiteClientSiteTokens', ['clientSiteTokens' => $clientSite->clientSiteClientSiteTokens])
+            @includeIf('panel.clientSites.relationships.clientSiteClientSiteTokens', ['clientSiteTokens' => $clientSite->clientSiteClientSiteTokens])
         </div>
         <div class="tab-pane" role="tabpanel" id="client_site_client_site_payment_methods">
-            @includeIf('admin.clientSites.relationships.clientSiteClientSitePaymentMethods', ['clientSitePaymentMethods' => $clientSite->clientSiteClientSitePaymentMethods])
+            @includeIf('panel.clientSites.relationships.clientSiteClientSitePaymentMethods', ['clientSitePaymentMethods' => $clientSite->clientSiteClientSitePaymentMethods])
         </div>
     </div>
 </div>

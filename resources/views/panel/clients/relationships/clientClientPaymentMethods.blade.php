@@ -1,7 +1,8 @@
 @can('client_payment_method_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('panel.client-payment-methods.create') }}">
+            <a class="btn btn-success" href="{{ route('panel.client-payment-methods.create',["client"=>$client->id]) }}">
+
                 {{ trans('global.add') }} {{ trans('cruds.clientPaymentMethod.title_singular') }}
             </a>
         </div>

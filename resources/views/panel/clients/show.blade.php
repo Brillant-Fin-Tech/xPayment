@@ -68,10 +68,10 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="client_client_payment_methods">
-            @includeIf('admin.clients.relationships.clientClientPaymentMethods', ['clientPaymentMethods' => $client->clientClientPaymentMethods])
+            @includeIf('panel.clients.relationships.clientClientPaymentMethods', ['clientPaymentMethods' => $client->clientClientPaymentMethods])
         </div>
         <div class="tab-pane" role="tabpanel" id="client_client_sites">
-            @includeIf('admin.clients.relationships.clientClientSites', ['clientSites' => $client->clientClientSites])
+            @includeIf('panel.clients.relationships.clientClientSites', ['clientSites' => $client->clientClientSites])
         </div>
     </div>
 </div>

@@ -69,7 +69,9 @@ class ClientController extends Controller
     {
         $client = Client::create($request->all());
 
-        return redirect()->route('panel.clients.index');
+        $client->load('clientClientPaymentMethods', 'clientClientSites');
+
+        return view('panel.clients.show', compact('client'));
     }
 
     public function edit(Client $client)
