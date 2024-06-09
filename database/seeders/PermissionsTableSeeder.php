@@ -224,50 +224,30 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 54,
-                'title' => 'client_site_payment_method_create',
-            ],
-            [
-                'id'    => 55,
-                'title' => 'client_site_payment_method_edit',
-            ],
-            [
-                'id'    => 56,
-                'title' => 'client_site_payment_method_show',
-            ],
-            [
-                'id'    => 57,
-                'title' => 'client_site_payment_method_delete',
-            ],
-            [
-                'id'    => 58,
-                'title' => 'client_site_payment_method_access',
-            ],
-            [
-                'id'    => 59,
                 'title' => 'payer_management_access',
             ],
             [
+                'id'    => 55,
+                'title' => 'transactionx_create',
+            ],
+            [
+                'id'    => 56,
+                'title' => 'transactionx_edit',
+            ],
+            [
+                'id'    => 57,
+                'title' => 'transactionx_show',
+            ],
+            [
+                'id'    => 58,
+                'title' => 'transactionx_delete',
+            ],
+            [
+                'id'    => 59,
+                'title' => 'transactionx_access',
+            ],
+            [
                 'id'    => 60,
-                'title' => 'transaction_create',
-            ],
-            [
-                'id'    => 61,
-                'title' => 'transaction_edit',
-            ],
-            [
-                'id'    => 62,
-                'title' => 'transaction_show',
-            ],
-            [
-                'id'    => 63,
-                'title' => 'transaction_delete',
-            ],
-            [
-                'id'    => 64,
-                'title' => 'transaction_access',
-            ],
-            [
-                'id'    => 65,
                 'title' => 'profile_password_edit',
             ],
         ];

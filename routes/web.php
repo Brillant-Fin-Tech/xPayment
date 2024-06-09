@@ -57,13 +57,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('client-site-tokens/destroy', 'ClientSiteTokenController@massDestroy')->name('client-site-tokens.massDestroy');
     Route::resource('client-site-tokens', 'ClientSiteTokenController');
 
-    // Client Site Payment Method
-    Route::delete('client-site-payment-methods/destroy', 'ClientSitePaymentMethodController@massDestroy')->name('client-site-payment-methods.massDestroy');
-    Route::resource('client-site-payment-methods', 'ClientSitePaymentMethodController');
-
-    // Transaction
-    Route::delete('transactions/destroy', 'TransactionController@massDestroy')->name('transactions.massDestroy');
-    Route::resource('transactions', 'TransactionController');
+    // Transactionx
+    Route::delete('transactionxes/destroy', 'TransactionxController@massDestroy')->name('transactionxes.massDestroy');
+    Route::resource('transactionxes', 'TransactionxController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password

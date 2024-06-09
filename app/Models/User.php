@@ -37,6 +37,7 @@ class User extends Authenticatable
         'email_verified_at',
         'password',
         'remember_token',
+        'client_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -82,5 +83,10 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class, 'client_id');
     }
 }

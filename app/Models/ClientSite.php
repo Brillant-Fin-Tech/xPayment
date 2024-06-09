@@ -23,6 +23,7 @@ class ClientSite extends Model
     protected $fillable = [
         'domain',
         'client_id',
+        'payment_method_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -38,13 +39,13 @@ class ClientSite extends Model
         return $this->hasMany(ClientSiteToken::class, 'client_site_id', 'id');
     }
 
-    public function clientSiteClientSitePaymentMethods()
-    {
-        return $this->hasMany(ClientSitePaymentMethod::class, 'client_site_id', 'id');
-    }
-
     public function client()
     {
         return $this->belongsTo(Client::class, 'client_id');
+    }
+
+    public function payment_method()
+    {
+        return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
     }
 }

@@ -37,6 +37,9 @@
                         {{ trans('cruds.user.fields.roles') }}
                     </th>
                     <th>
+                        {{ trans('cruds.user.fields.client') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -60,6 +63,14 @@
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($roles as $key => $item)
                                 <option value="{{ $item->title }}">{{ $item->title }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($clients as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -123,6 +134,7 @@
 { data: 'email', name: 'email' },
 { data: 'email_verified_at', name: 'email_verified_at' },
 { data: 'roles', name: 'roles.title' },
+{ data: 'client_name', name: 'client.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

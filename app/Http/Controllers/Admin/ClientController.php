@@ -46,9 +46,6 @@ class ClientController extends Controller
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
             });
-            $table->editColumn('domain', function ($row) {
-                return $row->domain ? $row->domain : '';
-            });
 
             $table->rawColumns(['actions', 'placeholder']);
 
@@ -90,7 +87,7 @@ class ClientController extends Controller
     {
         abort_if(Gate::denies('client_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $client->load('clientClientPaymentMethods', 'clientClientSites');
+        $client->load('clientClientPaymentMethods', 'clientClientSites', 'clientUsers');
 
         return view('admin.clients.show', compact('client'));
     }

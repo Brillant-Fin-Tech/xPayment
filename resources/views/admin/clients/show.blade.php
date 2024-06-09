@@ -31,14 +31,6 @@
                             {{ $client->name }}
                         </td>
                     </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.client.fields.domain') }}
-                        </th>
-                        <td>
-                            {{ $client->domain }}
-                        </td>
-                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
@@ -65,6 +57,11 @@
                 {{ trans('cruds.clientSite.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#client_users" role="tab" data-toggle="tab">
+                {{ trans('cruds.user.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="client_client_payment_methods">
@@ -72,6 +69,9 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="client_client_sites">
             @includeIf('admin.clients.relationships.clientClientSites', ['clientSites' => $client->clientClientSites])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="client_users">
+            @includeIf('admin.clients.relationships.clientUsers', ['users' => $client->clientUsers])
         </div>
     </div>
 </div>

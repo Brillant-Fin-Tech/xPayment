@@ -59,6 +59,20 @@
                 <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="client_id">{{ trans('cruds.user.fields.client') }}</label>
+                <select class="form-control select2 {{ $errors->has('client') ? 'is-invalid' : '' }}" name="client_id" id="client_id">
+                    @foreach($clients as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('client_id') ? old('client_id') : $user->client->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('client'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('client') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.client_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

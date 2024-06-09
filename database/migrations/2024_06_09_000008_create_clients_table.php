@@ -4,12 +4,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientSitePaymentMethodsTable extends Migration
+class CreateClientsTable extends Migration
 {
     public function up()
     {
-        Schema::create('client_site_payment_methods', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

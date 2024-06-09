@@ -22,7 +22,6 @@ class Client extends Model
 
     protected $fillable = [
         'name',
-        'domain',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -41,5 +40,10 @@ class Client extends Model
     public function clientClientSites()
     {
         return $this->hasMany(ClientSite::class, 'client_id', 'id');
+    }
+
+    public function clientUsers()
+    {
+        return $this->hasMany(User::class, 'client_id', 'id');
     }
 }

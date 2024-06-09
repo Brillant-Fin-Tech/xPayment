@@ -21,10 +21,6 @@ class UpdateClientRequest extends FormRequest
                 'string',
                 'nullable',
             ],
-            'domain' => [
-                'string',
-                'nullable',
-            ],
         ];
     }
 }

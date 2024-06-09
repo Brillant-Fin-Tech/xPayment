@@ -1,8 +1,8 @@
-@can('client_site_create')
+@can('transactionx_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.client-sites.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.clientSite.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.transactionxes.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.transactionx.title_singular') }}
             </a>
         </div>
     </div>
@@ -10,28 +10,40 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.clientSite.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.transactionx.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-clientClientSites">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-payerTransactionxes">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.clientSite.fields.id') }}
+                            {{ trans('cruds.transactionx.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.clientSite.fields.domain') }}
+                            {{ trans('cruds.transactionx.fields.type') }}
                         </th>
                         <th>
-                            {{ trans('cruds.clientSite.fields.client') }}
+                            {{ trans('cruds.transactionx.fields.amount') }}
                         </th>
                         <th>
-                            {{ trans('cruds.clientSite.fields.payment_method') }}
+                            {{ trans('cruds.transactionx.fields.commission_rate') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.transactionx.fields.commission') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.transactionx.fields.amount_net') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.transactionx.fields.date') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.transactionx.fields.payer') }}
                         </th>
                         <th>
                             &nbsp;
@@ -39,38 +51,50 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($clientSites as $key => $clientSite)
-                        <tr data-entry-id="{{ $clientSite->id }}">
+                    @foreach($transactionxes as $key => $transactionx)
+                        <tr data-entry-id="{{ $transactionx->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $clientSite->id ?? '' }}
+                                {{ $transactionx->id ?? '' }}
                             </td>
                             <td>
-                                {{ $clientSite->domain ?? '' }}
+                                {{ App\Models\Transactionx::TYPE_SELECT[$transactionx->type] ?? '' }}
                             </td>
                             <td>
-                                {{ $clientSite->client->name ?? '' }}
+                                {{ $transactionx->amount ?? '' }}
                             </td>
                             <td>
-                                {{ $clientSite->payment_method->name ?? '' }}
+                                {{ $transactionx->commission_rate ?? '' }}
                             </td>
                             <td>
-                                @can('client_site_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.client-sites.show', $clientSite->id) }}">
+                                {{ $transactionx->commission ?? '' }}
+                            </td>
+                            <td>
+                                {{ $transactionx->amount_net ?? '' }}
+                            </td>
+                            <td>
+                                {{ $transactionx->date ?? '' }}
+                            </td>
+                            <td>
+                                {{ $transactionx->payer->first_name ?? '' }}
+                            </td>
+                            <td>
+                                @can('transactionx_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.transactionxes.show', $transactionx->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('client_site_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.client-sites.edit', $clientSite->id) }}">
+                                @can('transactionx_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.transactionxes.edit', $transactionx->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('client_site_delete')
-                                    <form action="{{ route('admin.client-sites.destroy', $clientSite->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('transactionx_delete')
+                                    <form action="{{ route('admin.transactionxes.destroy', $transactionx->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -92,11 +116,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('client_site_delete')
+@can('transactionx_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.client-sites.massDestroy') }}",
+    url: "{{ route('admin.transactionxes.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -127,7 +151,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-clientClientSites:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-payerTransactionxes:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

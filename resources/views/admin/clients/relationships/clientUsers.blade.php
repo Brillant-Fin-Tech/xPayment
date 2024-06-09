@@ -1,8 +1,8 @@
-@can('client_site_create')
+@can('user_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.client-sites.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.clientSite.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.users.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.user.title_singular') }}
             </a>
         </div>
     </div>
@@ -10,28 +10,34 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.clientSite.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.user.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-clientClientSites">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-clientUsers">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.clientSite.fields.id') }}
+                            {{ trans('cruds.user.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.clientSite.fields.domain') }}
+                            {{ trans('cruds.user.fields.name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.clientSite.fields.client') }}
+                            {{ trans('cruds.user.fields.email') }}
                         </th>
                         <th>
-                            {{ trans('cruds.clientSite.fields.payment_method') }}
+                            {{ trans('cruds.user.fields.email_verified_at') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.roles') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.client') }}
                         </th>
                         <th>
                             &nbsp;
@@ -39,38 +45,46 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($clientSites as $key => $clientSite)
-                        <tr data-entry-id="{{ $clientSite->id }}">
+                    @foreach($users as $key => $user)
+                        <tr data-entry-id="{{ $user->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $clientSite->id ?? '' }}
+                                {{ $user->id ?? '' }}
                             </td>
                             <td>
-                                {{ $clientSite->domain ?? '' }}
+                                {{ $user->name ?? '' }}
                             </td>
                             <td>
-                                {{ $clientSite->client->name ?? '' }}
+                                {{ $user->email ?? '' }}
                             </td>
                             <td>
-                                {{ $clientSite->payment_method->name ?? '' }}
+                                {{ $user->email_verified_at ?? '' }}
                             </td>
                             <td>
-                                @can('client_site_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.client-sites.show', $clientSite->id) }}">
+                                @foreach($user->roles as $key => $item)
+                                    <span class="badge badge-info">{{ $item->title }}</span>
+                                @endforeach
+                            </td>
+                            <td>
+                                {{ $user->client->name ?? '' }}
+                            </td>
+                            <td>
+                                @can('user_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.users.show', $user->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('client_site_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.client-sites.edit', $clientSite->id) }}">
+                                @can('user_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.users.edit', $user->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('client_site_delete')
-                                    <form action="{{ route('admin.client-sites.destroy', $clientSite->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('user_delete')
+                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -92,11 +106,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('client_site_delete')
+@can('user_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.client-sites.massDestroy') }}",
+    url: "{{ route('admin.users.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -127,7 +141,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-clientClientSites:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-clientUsers:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

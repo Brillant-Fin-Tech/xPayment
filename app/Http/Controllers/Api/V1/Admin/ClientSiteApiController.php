@@ -17,7 +17,7 @@ class ClientSiteApiController extends Controller
     {
         abort_if(Gate::denies('client_site_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ClientSiteResource(ClientSite::with(['client'])->get());
+        return new ClientSiteResource(ClientSite::with(['client', 'payment_method'])->get());
     }
 
     public function store(StoreClientSiteRequest $request)
@@ -33,7 +33,7 @@ class ClientSiteApiController extends Controller
     {
         abort_if(Gate::denies('client_site_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ClientSiteResource($clientSite->load(['client']));
+        return new ClientSiteResource($clientSite->load(['client', 'payment_method']));
     }
 
     public function update(UpdateClientSiteRequest $request, ClientSite $clientSite)

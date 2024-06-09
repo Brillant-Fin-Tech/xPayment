@@ -21,10 +21,6 @@ class StoreClientRequest extends FormRequest
                 'string',
                 'nullable',
             ],
-            'domain' => [
-                'string',
-                'nullable',
-            ],
         ];
     }
 }
