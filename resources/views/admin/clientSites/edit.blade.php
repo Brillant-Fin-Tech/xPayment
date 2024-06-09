@@ -35,6 +35,20 @@
                 <span class="help-block">{{ trans('cruds.clientSite.fields.client_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="payment_method_id">{{ trans('cruds.clientSite.fields.payment_method') }}</label>
+                <select class="form-control select2 {{ $errors->has('payment_method') ? 'is-invalid' : '' }}" name="payment_method_id" id="payment_method_id">
+                    @foreach($payment_methods as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('payment_method_id') ? old('payment_method_id') : $clientSite->payment_method->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('payment_method'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('payment_method') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.clientSite.fields.payment_method_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

@@ -4,13 +4,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRelationshipFieldsToTransactionsTable extends Migration
+class AddRelationshipFieldsToTransactionxesTable extends Migration
 {
     public function up()
     {
-        Schema::table('transactions', function (Blueprint $table) {
+        Schema::table('transactionxes', function (Blueprint $table) {
             $table->unsignedBigInteger('payer_id')->nullable();
-            $table->foreign('payer_id', 'payer_fk_9846803')->references('id')->on('payers');
+            $table->foreign('payer_id', 'payer_fk_9856670')->references('id')->on('payers');
         });
     }
 }

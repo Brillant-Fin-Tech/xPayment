@@ -110,7 +110,7 @@
             </li>
         @endcan
         @can('client_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/clients*") ? "c-show" : "" }} {{ request()->is("admin/client-payment-methods*") ? "c-show" : "" }} {{ request()->is("admin/client-sites*") ? "c-show" : "" }} {{ request()->is("admin/client-site-payment-methods*") ? "c-show" : "" }} {{ request()->is("admin/client-site-tokens*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/clients*") ? "c-show" : "" }} {{ request()->is("admin/client-payment-methods*") ? "c-show" : "" }} {{ request()->is("admin/client-sites*") ? "c-show" : "" }} {{ request()->is("admin/client-site-tokens*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
 
@@ -148,16 +148,6 @@
                             </a>
                         </li>
                     @endcan
-                    @can('client_site_payment_method_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.client-site-payment-methods.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/client-site-payment-methods") || request()->is("admin/client-site-payment-methods/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.clientSitePaymentMethod.title') }}
-                            </a>
-                        </li>
-                    @endcan
                     @can('client_site_token_access')
                         <li class="c-sidebar-nav-item">
                             <a href="{{ route("admin.client-site-tokens.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/client-site-tokens") || request()->is("admin/client-site-tokens/*") ? "c-active" : "" }}">
@@ -171,13 +161,13 @@
                 </ul>
             </li>
         @endcan
-        @can('transaction_access')
+        @can('transactionx_access')
             <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.transactions.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/transactions") || request()->is("admin/transactions/*") ? "c-active" : "" }}">
+                <a href="{{ route("admin.transactionxes.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/transactionxes") || request()->is("admin/transactionxes/*") ? "c-active" : "" }}">
                     <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
 
                     </i>
-                    {{ trans('cruds.transaction.title') }}
+                    {{ trans('cruds.transactionx.title') }}
                 </a>
             </li>
         @endcan

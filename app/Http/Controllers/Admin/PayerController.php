@@ -96,7 +96,7 @@ class PayerController extends Controller
     {
         abort_if(Gate::denies('payer_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $payer->load('payerTransactions');
+        $payer->load('payerTransactionxes');
 
         return view('admin.payers.show', compact('payer'));
     }

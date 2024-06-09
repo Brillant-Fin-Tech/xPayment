@@ -35,8 +35,8 @@ class Payer extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
-    public function payerTransactions()
+    public function payerTransactionxes()
     {
-        return $this->hasMany(Transaction::class, 'payer_id', 'id');
+        return $this->hasMany(Transactionx::class, 'payer_id', 'id');
     }
 }

@@ -39,6 +39,14 @@
                             {{ $clientSite->client->name ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.clientSite.fields.payment_method') }}
+                        </th>
+                        <td>
+                            {{ $clientSite->payment_method->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
@@ -60,18 +68,10 @@
                 {{ trans('cruds.clientSiteToken.title') }}
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#client_site_client_site_payment_methods" role="tab" data-toggle="tab">
-                {{ trans('cruds.clientSitePaymentMethod.title') }}
-            </a>
-        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="client_site_client_site_tokens">
             @includeIf('admin.clientSites.relationships.clientSiteClientSiteTokens', ['clientSiteTokens' => $clientSite->clientSiteClientSiteTokens])
-        </div>
-        <div class="tab-pane" role="tabpanel" id="client_site_client_site_payment_methods">
-            @includeIf('admin.clientSites.relationships.clientSiteClientSitePaymentMethods', ['clientSitePaymentMethods' => $clientSite->clientSiteClientSitePaymentMethods])
         </div>
     </div>
 </div>

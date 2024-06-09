@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Client;
 use App\Models\Role;
 use App\Models\User;
 use Gate;
@@ -20,7 +21,7 @@ class UsersController extends Controller
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = User::with(['roles'])->select(sprintf('%s.*', (new User)->table));
+            $query = User::with(['roles', 'client'])->select(sprintf('%s.*', (new User)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -59,15 +60,19 @@ class UsersController extends Controller
 
                 return implode(' ', $labels);
             });
+            $table->addColumn('client_name', function ($row) {
+                return $row->client ? $row->client->name : '';
+            });
 
-            $table->rawColumns(['actions', 'placeholder', 'roles']);
+            $table->rawColumns(['actions', 'placeholder', 'roles', 'client']);
 
             return $table->make(true);
         }
 
-        $roles = Role::get();
+        $roles   = Role::get();
+        $clients = Client::get();
 
-        return view('admin.users.index', compact('roles'));
+        return view('admin.users.index', compact('roles', 'clients'));
     }
 
     public function create()
@@ -76,7 +81,9 @@ class UsersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        return view('admin.users.create', compact('roles'));
+        $clients = Client::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.users.create', compact('clients', 'roles'));
     }
 
     public function store(StoreUserRequest $request)
@@ -93,9 +100,11 @@ class UsersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        $user->load('roles');
+        $clients = Client::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.users.edit', compact('roles', 'user'));
+        $user->load('roles', 'client');
+
+        return view('admin.users.edit', compact('clients', 'roles', 'user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
@@ -110,7 +119,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $user->load('roles', 'userUserAlerts');
+        $user->load('roles', 'client', 'userUserAlerts');
 
         return view('admin.users.show', compact('user'));
     }

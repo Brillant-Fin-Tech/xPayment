@@ -28,6 +28,6 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     // Client Site Token
     Route::apiResource('client-site-tokens', 'ClientSiteTokenApiController');
 
-    // Client Site Payment Method
-    Route::apiResource('client-site-payment-methods', 'ClientSitePaymentMethodApiController');
+    // Transactionx
+    Route::apiResource('transactionxes', 'TransactionxApiController');
 });
