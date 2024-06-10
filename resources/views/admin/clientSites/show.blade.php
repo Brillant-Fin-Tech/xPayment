@@ -44,7 +44,9 @@
                             {{ trans('cruds.clientSite.fields.payment_method') }}
                         </th>
                         <td>
-                            {{ $clientSite->payment_method->name ?? '' }}
+                            @foreach($clientSite->payment_methods as $key => $payment_method)
+                                <span class="label label-info">{{ $payment_method->name }}</span>
+                            @endforeach
                         </td>
                     </tr>
                 </tbody>

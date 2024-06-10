@@ -120,7 +120,7 @@
 { data: 'id', name: 'id' },
 { data: 'domain', name: 'domain' },
 { data: 'client_name', name: 'client.name' },
-{ data: 'payment_method_name', name: 'payment_method.name' },
+{ data: 'payment_method', name: 'payment_methods.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

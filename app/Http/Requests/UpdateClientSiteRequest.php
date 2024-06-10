@@ -21,6 +21,12 @@ class UpdateClientSiteRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'payment_methods.*' => [
+                'integer',
+            ],
+            'payment_methods' => [
+                'array',
+            ],
         ];
     }
 }

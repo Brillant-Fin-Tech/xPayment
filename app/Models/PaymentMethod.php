@@ -39,6 +39,6 @@ class PaymentMethod extends Model
 
     public function paymentMethodClientSites()
     {
-        return $this->hasMany(ClientSite::class, 'payment_method_id', 'id');
+        return $this->belongsToMany(ClientSite::class);
     }
 }
