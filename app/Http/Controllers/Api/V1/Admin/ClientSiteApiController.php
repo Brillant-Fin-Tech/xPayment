@@ -17,12 +17,13 @@ class ClientSiteApiController extends Controller
     {
         abort_if(Gate::denies('client_site_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ClientSiteResource(ClientSite::with(['client', 'payment_method'])->get());
+        return new ClientSiteResource(ClientSite::with(['client', 'payment_methods'])->get());
     }
 
     public function store(StoreClientSiteRequest $request)
     {
         $clientSite = ClientSite::create($request->all());
+        $clientSite->payment_methods()->sync($request->input('payment_methods', []));
 
         return (new ClientSiteResource($clientSite))
             ->response()
@@ -33,12 +34,13 @@ class ClientSiteApiController extends Controller
     {
         abort_if(Gate::denies('client_site_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ClientSiteResource($clientSite->load(['client', 'payment_method']));
+        return new ClientSiteResource($clientSite->load(['client', 'payment_methods']));
     }
 
     public function update(UpdateClientSiteRequest $request, ClientSite $clientSite)
     {
         $clientSite->update($request->all());
+        $clientSite->payment_methods()->sync($request->input('payment_methods', []));
 
         return (new ClientSiteResource($clientSite))
             ->response()

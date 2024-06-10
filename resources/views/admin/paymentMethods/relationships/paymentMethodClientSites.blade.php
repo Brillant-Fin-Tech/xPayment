@@ -54,7 +54,9 @@
                                 {{ $clientSite->client->name ?? '' }}
                             </td>
                             <td>
-                                {{ $clientSite->payment_method->name ?? '' }}
+                                @foreach($clientSite->payment_methods as $key => $item)
+                                    <span class="badge badge-info">{{ $item->name }}</span>
+                                @endforeach
                             </td>
                             <td>
                                 @can('client_site_show')

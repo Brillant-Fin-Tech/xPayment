@@ -21,7 +21,7 @@ class ClientSiteController extends Controller
         abort_if(Gate::denies('client_site_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = ClientSite::with(['client', 'payment_method'])->select(sprintf('%s.*', (new ClientSite)->table));
+            $query = ClientSite::with(['client', 'payment_methods'])->select(sprintf('%s.*', (new ClientSite)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -52,8 +52,13 @@ class ClientSiteController extends Controller
                 return $row->client ? $row->client->name : '';
             });
 
-            $table->addColumn('payment_method_name', function ($row) {
-                return $row->payment_method ? $row->payment_method->name : '';
+            $table->editColumn('payment_method', function ($row) {
+                $labels = [];
+                foreach ($row->payment_methods as $payment_method) {
+                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $payment_method->name);
+                }
+
+                return implode(' ', $labels);
             });
 
             $table->rawColumns(['actions', 'placeholder', 'client', 'payment_method']);
@@ -73,7 +78,7 @@ class ClientSiteController extends Controller
 
         $clients = Client::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $payment_methods = PaymentMethod::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $payment_methods = PaymentMethod::pluck('name', 'id');
 
         return view('admin.clientSites.create', compact('clients', 'payment_methods'));
     }
@@ -81,6 +86,7 @@ class ClientSiteController extends Controller
     public function store(StoreClientSiteRequest $request)
     {
         $clientSite = ClientSite::create($request->all());
+        $clientSite->payment_methods()->sync($request->input('payment_methods', []));
 
         return redirect()->route('admin.client-sites.index');
     }
@@ -91,9 +97,9 @@ class ClientSiteController extends Controller
 
         $clients = Client::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $payment_methods = PaymentMethod::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $payment_methods = PaymentMethod::pluck('name', 'id');
 
-        $clientSite->load('client', 'payment_method');
+        $clientSite->load('client', 'payment_methods');
 
         return view('admin.clientSites.edit', compact('clientSite', 'clients', 'payment_methods'));
     }
@@ -101,6 +107,7 @@ class ClientSiteController extends Controller
     public function update(UpdateClientSiteRequest $request, ClientSite $clientSite)
     {
         $clientSite->update($request->all());
+        $clientSite->payment_methods()->sync($request->input('payment_methods', []));
 
         return redirect()->route('admin.client-sites.index');
     }
@@ -109,7 +116,7 @@ class ClientSiteController extends Controller
     {
         abort_if(Gate::denies('client_site_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clientSite->load('client', 'payment_method', 'clientSiteClientSiteTokens');
+        $clientSite->load('client', 'payment_methods', 'clientSiteClientSiteTokens');
 
         return view('admin.clientSites.show', compact('clientSite'));
     }

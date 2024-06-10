@@ -23,7 +23,6 @@ class ClientSite extends Model
     protected $fillable = [
         'domain',
         'client_id',
-        'payment_method_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -44,8 +43,8 @@ class ClientSite extends Model
         return $this->belongsTo(Client::class, 'client_id');
     }
 
-    public function payment_method()
+    public function payment_methods()
     {
-        return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
+        return $this->belongsToMany(PaymentMethod::class);
     }
 }
