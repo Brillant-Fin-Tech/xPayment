@@ -79,6 +79,30 @@
                             {{ $transactionx->payer->first_name ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.transactionx.fields.payment_method') }}
+                        </th>
+                        <td>
+                            {{ $transactionx->payment_method->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.transactionx.fields.site') }}
+                        </th>
+                        <td>
+                            {{ $transactionx->site->domain ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.transactionx.fields.client') }}
+                        </th>
+                        <td>
+                            {{ $transactionx->client->name ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

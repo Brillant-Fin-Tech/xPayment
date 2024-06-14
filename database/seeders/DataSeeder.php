@@ -23,54 +23,48 @@ class DataSeeder extends Seeder
 
         $paymentMethods = [
             [
-                'id' => 1,
                 'name' => 'Paybis',
             ],
             [
-                'id' => 2,
-                'title' => 'Yöntem 2',
+                'name' => 'Yöntem 2',
             ],
             [
-                'id' => 3,
-                'title' => 'Yöntem 3',
+                'name' => 'Yöntem 3',
             ],
         ];
 
-        PaymentMethod::insert($paymentMethods);
+        foreach ($paymentMethods as $paymentMethod) {
+            PaymentMethod::create($paymentMethod);
+        }
 
 
         Client::truncate();
+        ClientPaymentMethod::truncate();
         User::truncate();
-        $users = [
+        $users =
             [
-                'id'             => 1,
                 'name'           => 'Admin',
                 'email'          => 'admin@admin.com',
                 'password'       => bcrypt('password'),
                 'remember_token' => null,
-            ],
-        ];
+            ];
 
-        User::insert($users);
-
+        $user = User::create($users);
+        $user->roles()->attach(1);
         $clients = [
             [
-                'id' => 1,
                 'name' => 'Client 1',
                 'email' => 'client1@client.com',
             ],
             [
-                'id' => 2,
                 'name' => 'Client 2',
                 'email' => 'client2@client.com',
             ],
             [
-                'id' => 3,
                 'name' => 'Client 3',
                 'email' => 'client3@client.com',
             ],
             [
-                'id' => 4,
                 'name' => 'Client 4',
                 'email' => 'client4@client.com',
             ],
@@ -86,41 +80,18 @@ class DataSeeder extends Seeder
                 'password'=>bcrypt('password'),
                 'client_id'=>$added->id,
             ]);
+
+            $paymentMethod = PaymentMethod::inRandomOrder()->first();
+            $added->clientClientPaymentMethods()->create([
+                "name"=>$paymentMethod->name,
+                'payment_method_id'=>$paymentMethod->id,
+            ]);
         }
 
 
-        ClientPaymentMethod::truncate();
-
-        $datas = [
-            [
-                'id' => 1,
-                'name' => '1',
-                'client_id' => 1,
-                'payment_method_id' => 1,
-            ],
-            [
-                'id' => 2,
-                'name' => '2',
-                'client_id' => 1,
-                'payment_method_id' => 2,
-            ],
-            [
-                'id' => 3,
-                'name' => '3',
-                'client_id' => 2,
-                'payment_method_id' => 1,
-            ],
-            [
-                'id' => 4,
-                'name' => '4',
-                'client_id' => 3,
-                'payment_method_id' => 3,
-            ],
-        ];
-
-        ClientPaymentMethod::insert($datas);
 
 
+/*
         ClientSite::truncate();
         ClientSiteToken::truncate();
 
@@ -164,7 +135,7 @@ class DataSeeder extends Seeder
                 'expires_at'=>"2030-01-01 00:00:00",
                 'is_active'=>1
             ]);
-        }
+        }*/
 
 
         DB::statement("SET foreign_key_checks=1");

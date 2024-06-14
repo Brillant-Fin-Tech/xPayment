@@ -5,12 +5,16 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Carbon\Carbon;
 use DateTimeInterface;
+use Emadadly\LaravelUuid\Uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transactionx extends Model
 {
+    use Uuids;
+    public $incrementing = false;
+    protected $keyType = 'string';
     use SoftDeletes, Auditable, HasFactory;
 
     public $table = 'transactionxes';

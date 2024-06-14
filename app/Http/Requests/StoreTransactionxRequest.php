@@ -31,7 +31,6 @@ class StoreTransactionxRequest extends FormRequest
             ],
             'payer_id' => [
                 'required',
-                'integer',
             ],
         ];
     }

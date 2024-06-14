@@ -9,7 +9,8 @@ class CreateClientPaymentMethodsTable extends Migration
     public function up()
     {
         Schema::create('client_payment_methods', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->unique();
+            $table->primary('id');
             $table->string('name')->nullable();
             $table->timestamps();
             $table->softDeletes();

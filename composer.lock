@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a71d8e12bb9ccc584dc28ffadd685fb",
+    "content-hash": "48c3cc8f3669e9b590a0d61ff0ab5aae",
     "packages": [
         {
             "name": "brick/math",
@@ -505,6 +505,75 @@
                 }
             ],
             "time": "2023-10-06T06:47:41+00:00"
+        },
+        {
+            "name": "emadadly/laravel-uuid",
+            "version": "v1.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EmadAdly/laravel-uuid.git",
+                "reference": "0573b56017311fc9c28fadff3f7555a01f0b4805"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EmadAdly/laravel-uuid/zipball/0573b56017311fc9c28fadff3f7555a01f0b4805",
+                "reference": "0573b56017311fc9c28fadff3f7555a01f0b4805",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "6.*|7.*|8.*|9.*|^10.0|^11.0",
+                "php": "^7.0|^8.0|^8.1"
+            },
+            "require-dev": {
+                "laravel/framework": "6.*|7.*|8.*|9.*|^10.0|^11.0",
+                "phpunit/phpunit": "~6.0|7.0.*|8.0.*|9.0.*|^9.5.10|^10.5",
+                "squizlabs/php_codesniffer": "^3.6"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2.1-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Emadadly\\LaravelUuid\\LaravelUuidServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Emadadly\\LaravelUuid\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emad Adly",
+                    "email": "thisEmad@gmail.com",
+                    "homepage": "http://devgist.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "laravel uuid a simple, automatic UUID generator for any model based on Laravel.",
+            "homepage": "https://github.com/emadadly/laravel-uuid",
+            "keywords": [
+                "Laravel UUID",
+                "emadadly",
+                "generator",
+                "guid",
+                "laravel",
+                "laravel-guid",
+                "laravel-uuid",
+                "uuid"
+            ],
+            "support": {
+                "issues": "https://github.com/EmadAdly/laravel-uuid/issues",
+                "source": "https://github.com/EmadAdly/laravel-uuid/tree/v1.3.5"
+            },
+            "time": "2024-04-29T09:54:05+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -8275,5 +8344,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

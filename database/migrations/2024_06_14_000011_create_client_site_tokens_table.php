@@ -9,7 +9,8 @@ class CreateClientSiteTokensTable extends Migration
     public function up()
     {
         Schema::create('client_site_tokens', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->unique();
+            $table->primary('id');
             $table->string('token')->unique();
             $table->datetime('expires_at');
             $table->string('is_active');

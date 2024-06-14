@@ -4,14 +4,18 @@ namespace App\Models;
 
 use App\Traits\Auditable;
 use DateTimeInterface;
+use Emadadly\LaravelUuid\Uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Client extends Model
 {
-    use SoftDeletes, Auditable, HasFactory;
+    use Uuids;
 
+    use SoftDeletes, Auditable, HasFactory;
+    public $incrementing = false;
+    protected $keyType = 'string';
     public $table = 'clients';
 
     protected $dates = [

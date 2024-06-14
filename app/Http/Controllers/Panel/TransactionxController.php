@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyTransactionxRequest;
 use App\Http\Requests\StoreTransactionxRequest;
 use App\Http\Requests\UpdateTransactionxRequest;
+use App\Models\Client;
+use App\Models\ClientSite;
 use App\Models\Payer;
+use App\Models\PaymentMethod;
 use App\Models\Transactionx;
 use Gate;
 use Illuminate\Http\Request;
@@ -20,7 +23,7 @@ class TransactionxController extends Controller
         abort_if(Gate::denies('transactionx_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Transactionx::with(['payer'])->select(sprintf('%s.*', (new Transactionx)->table));
+            $query = Transactionx::with(['payer', 'payment_method', 'site', 'client'])->select(sprintf('%s.*', (new Transactionx)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -64,14 +67,29 @@ class TransactionxController extends Controller
                 return $row->payer ? $row->payer->first_name : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'payer']);
+            $table->addColumn('payment_method_name', function ($row) {
+                return $row->payment_method ? $row->payment_method->name : '';
+            });
+
+            $table->addColumn('site_domain', function ($row) {
+                return $row->site ? $row->site->domain : '';
+            });
+
+            $table->addColumn('client_name', function ($row) {
+                return $row->client ? $row->client->name : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'payer', 'payment_method', 'site', 'client']);
 
             return $table->make(true);
         }
 
-        $payers = Payer::get();
+        $payers          = Payer::get();
+        $payment_methods = PaymentMethod::get();
+        $client_sites    = ClientSite::get();
+        $clients         = Client::get();
 
-        return view('panel.transactionxes.index', compact('payers'));
+        return view('panel.transactionxes.index', compact('payers', 'payment_methods', 'client_sites', 'clients'));
     }
 
     public function create()
@@ -80,7 +98,13 @@ class TransactionxController extends Controller
 
         $payers = Payer::pluck('first_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('panel.transactionxes.create', compact('payers'));
+        $payment_methods = PaymentMethod::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $sites = ClientSite::pluck('domain', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $clients = Client::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('panel.transactionxes.create', compact('clients', 'payers', 'payment_methods', 'sites'));
     }
 
     public function store(StoreTransactionxRequest $request)
@@ -96,9 +120,15 @@ class TransactionxController extends Controller
 
         $payers = Payer::pluck('first_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $transactionx->load('payer');
+        $payment_methods = PaymentMethod::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('panel.transactionxes.edit', compact('payers', 'transactionx'));
+        $sites = ClientSite::pluck('domain', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $clients = Client::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $transactionx->load('payer', 'payment_method', 'site', 'client');
+
+        return view('panel.transactionxes.edit', compact('clients', 'payers', 'payment_methods', 'sites', 'transactionx'));
     }
 
     public function update(UpdateTransactionxRequest $request, Transactionx $transactionx)
@@ -112,7 +142,7 @@ class TransactionxController extends Controller
     {
         abort_if(Gate::denies('transactionx_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $transactionx->load('payer');
+        $transactionx->load('payer', 'payment_method', 'site', 'client');
 
         return view('panel.transactionxes.show', compact('transactionx'));
     }

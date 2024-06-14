@@ -9,7 +9,8 @@ class CreateTransactionxesTable extends Migration
     public function up()
     {
         Schema::create('transactionxes', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->unique();
+            $table->primary('id');
             $table->string('type');
             $table->decimal('amount', 15, 2)->nullable();
             $table->float('commission_rate', 5, 2)->nullable();
