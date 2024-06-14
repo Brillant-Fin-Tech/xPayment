@@ -9,7 +9,7 @@
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('panel.client-sites.index') }}">
+                <a class="btn btn-default" href="{{ route('panel.clients.show',$clientSite->client_id) }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -39,10 +39,20 @@
                             {{ $clientSite->client->name ?? '' }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.clientSite.fields.payment_method') }}
+                        </th>
+                        <td>
+                            @foreach($clientSite->payment_methods as $key => $payment_method)
+                                <span class="label label-info">{{ $payment_method->name }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('panel.client-sites.index') }}">
+                <a class="btn btn-default" href="{{ route('panel.clients.show',$clientSite->client_id) }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -60,18 +70,10 @@
                 {{ trans('cruds.clientSiteToken.title') }}
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#client_site_client_site_payment_methods" role="tab" data-toggle="tab">
-                {{ trans('cruds.clientSitePaymentMethod.title') }}
-            </a>
-        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="client_site_client_site_tokens">
             @includeIf('panel.clientSites.relationships.clientSiteClientSiteTokens', ['clientSiteTokens' => $clientSite->clientSiteClientSiteTokens])
-        </div>
-        <div class="tab-pane" role="tabpanel" id="client_site_client_site_payment_methods">
-            @includeIf('panel.clientSites.relationships.clientSiteClientSitePaymentMethods', ['clientSitePaymentMethods' => $clientSite->clientSiteClientSitePaymentMethods])
         </div>
     </div>
 </div>

@@ -9,19 +9,11 @@
     <div class="card-body">
         <form method="POST" action="{{ route("panel.client-site-tokens.store") }}" enctype="multipart/form-data">
             @csrf
-            <div class="form-group">
-                <label class="required" for="token">{{ trans('cruds.clientSiteToken.fields.token') }}</label>
-                <input class="form-control {{ $errors->has('token') ? 'is-invalid' : '' }}" type="text" name="token" id="token" value="{{ old('token', '') }}" required>
-                @if($errors->has('token'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('token') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.clientSiteToken.fields.token_helper') }}</span>
-            </div>
+            <input type="hidden" name="client_site_id" value="{{ request()->input('client_site_id') }}">
+
             <div class="form-group">
                 <label class="required" for="expires_at">{{ trans('cruds.clientSiteToken.fields.expires_at') }}</label>
-                <input class="form-control datetime {{ $errors->has('expires_at') ? 'is-invalid' : '' }}" type="text" name="expires_at" id="expires_at" value="{{ old('expires_at') }}" required>
+                <input class="form-control datetime {{ $errors->has('expires_at') ? 'is-invalid' : '' }}" type="text" name="expires_at" id="expires_at" value="{{ old('expires_at') ?? '2030-01-01 00:00:00' }}" required>
                 @if($errors->has('expires_at'))
                     <div class="invalid-feedback">
                         {{ $errors->first('expires_at') }}
@@ -43,20 +35,6 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.clientSiteToken.fields.is_active_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="client_site_id">{{ trans('cruds.clientSiteToken.fields.client_site') }}</label>
-                <select class="form-control select2 {{ $errors->has('client_site') ? 'is-invalid' : '' }}" name="client_site_id" id="client_site_id">
-                    @foreach($client_sites as $id => $entry)
-                        <option value="{{ $id }}" {{ old('client_site_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('client_site'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('client_site') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.clientSiteToken.fields.client_site_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
