@@ -1,7 +1,7 @@
 @can('client_site_token_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('panel.client-site-tokens.create') }}">
+            <a class="btn btn-success" href="{{ route('panel.client-site-tokens.create',["client_site_id"=>$clientSite->id]) }}">
                 {{ trans('global.add') }} {{ trans('cruds.clientSiteToken.title_singular') }}
             </a>
         </div>

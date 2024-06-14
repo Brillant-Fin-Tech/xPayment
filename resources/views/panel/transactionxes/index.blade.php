@@ -1,43 +1,49 @@
 @extends('layouts.panel')
 @section('content')
-@can('user_create')
+@can('transactionx_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('panel.users.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.user.title_singular') }}
+            <a class="btn btn-success" href="{{ route('panel.transactionxes.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.transactionx.title_singular') }}
             </a>
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.user.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.transactionx.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-User">
+        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Transactionx">
             <thead>
                 <tr>
                     <th width="10">
 
                     </th>
                     <th>
-                        {{ trans('cruds.user.fields.id') }}
+                        {{ trans('cruds.transactionx.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.user.fields.name') }}
+                        {{ trans('cruds.transactionx.fields.type') }}
                     </th>
                     <th>
-                        {{ trans('cruds.user.fields.email') }}
+                        {{ trans('cruds.transactionx.fields.amount') }}
                     </th>
                     <th>
-                        {{ trans('cruds.user.fields.email_verified_at') }}
+                        {{ trans('cruds.transactionx.fields.commission_rate') }}
                     </th>
                     <th>
-                        {{ trans('cruds.user.fields.roles') }}
+                        {{ trans('cruds.transactionx.fields.commission') }}
                     </th>
                     <th>
-                        {{ trans('cruds.user.fields.client') }}
+                        {{ trans('cruds.transactionx.fields.amount_net') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.transactionx.fields.date') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.transactionx.fields.payer') }}
                     </th>
                     <th>
                         &nbsp;
@@ -50,27 +56,33 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <select class="search">
+                        <select class="search" strict="true">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach($roles as $key => $item)
-                                <option value="{{ $item->title }}">{{ $item->title }}</option>
+                            @foreach(App\Models\Transactionx::TYPE_SELECT as $key => $item)
+                                <option value="{{ $key }}">{{ $item }}</option>
                             @endforeach
                         </select>
                     </td>
                     <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach($clients as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @foreach($payers as $key => $item)
+                                <option value="{{ $item->first_name }}">{{ $item->first_name }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -90,11 +102,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('user_delete')
+@can('transactionx_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('panel.users.massDestroy') }}",
+    url: "{{ route('panel.transactionxes.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
@@ -126,22 +138,24 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('panel.users.index') }}",
+    ajax: "{{ route('panel.transactionxes.index') }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
-{ data: 'name', name: 'name' },
-{ data: 'email', name: 'email' },
-{ data: 'email_verified_at', name: 'email_verified_at' },
-{ data: 'roles', name: 'roles.title' },
-{ data: 'client_name', name: 'client.name' },
+{ data: 'type', name: 'type' },
+{ data: 'amount', name: 'amount' },
+{ data: 'commission_rate', name: 'commission_rate' },
+{ data: 'commission', name: 'commission' },
+{ data: 'amount_net', name: 'amount_net' },
+{ data: 'date', name: 'date' },
+{ data: 'payer_first_name', name: 'payer.first_name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   };
-  let table = $('.datatable-User').DataTable(dtOverrideGlobals);
+  let table = $('.datatable-Transactionx').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

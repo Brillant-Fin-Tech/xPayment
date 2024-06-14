@@ -1,7 +1,7 @@
 @can('client_site_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('panel.client-sites.create',["client"=>$client->id]) }}">
+            <a class="btn btn-success" href="{{ route('panel.client-sites.create',["client_id"=>$client->id]) }}">
                 {{ trans('global.add') }} {{ trans('cruds.clientSite.title_singular') }}
             </a>
         </div>
@@ -31,6 +31,9 @@
                             {{ trans('cruds.clientSite.fields.client') }}
                         </th>
                         <th>
+                            {{ trans('cruds.clientSite.fields.payment_method') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -49,6 +52,11 @@
                             </td>
                             <td>
                                 {{ $clientSite->client->name ?? '' }}
+                            </td>
+                            <td>
+                                @foreach($clientSite->payment_methods as $key => $item)
+                                    <span class="badge badge-info">{{ $item->name }}</span>
+                                @endforeach
                             </td>
                             <td>
                                 @can('client_site_show')

@@ -31,6 +31,9 @@
                         {{ trans('cruds.clientSite.fields.client') }}
                     </th>
                     <th>
+                        {{ trans('cruds.clientSite.fields.payment_method') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -47,6 +50,14 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($clients as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($payment_methods as $key => $item)
                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
@@ -109,6 +120,7 @@
 { data: 'id', name: 'id' },
 { data: 'domain', name: 'domain' },
 { data: 'client_name', name: 'client.name' },
+{ data: 'payment_method', name: 'payment_methods.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

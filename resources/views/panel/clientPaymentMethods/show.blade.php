@@ -9,7 +9,7 @@
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('panel.client-payment-methods.index') }}">
+                <a class="btn btn-default" href="{{ route('panel.clients.show',$clientPaymentMethod->client_id) }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -50,14 +50,13 @@
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('panel.client-payment-methods.index') }}">
+                <a class="btn btn-default" href="{{ route('panel.clients.show',$clientPaymentMethod->client_id) }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
         </div>
     </div>
 </div>
-
 
 
 
