@@ -62,6 +62,11 @@
                 {{ trans('cruds.user.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#client_transactionxes" role="tab" data-toggle="tab">
+                {{ trans('cruds.transactionx.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="client_client_payment_methods">
@@ -72,6 +77,9 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="client_users">
             @includeIf('admin.clients.relationships.clientUsers', ['users' => $client->clientUsers])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="client_transactionxes">
+            @includeIf('admin.clients.relationships.clientTransactionxes', ['transactionxes' => $client->clientTransactionxes])
         </div>
     </div>
 </div>

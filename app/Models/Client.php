@@ -46,4 +46,9 @@ class Client extends Model
     {
         return $this->hasMany(User::class, 'client_id', 'id');
     }
+
+    public function clientTransactionxes()
+    {
+        return $this->hasMany(Transactionx::class, 'client_id', 'id');
+    }
 }

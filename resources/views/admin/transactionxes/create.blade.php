@@ -89,6 +89,48 @@
                 <span class="help-block">{{ trans('cruds.transactionx.fields.payer_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="payment_method_id">{{ trans('cruds.transactionx.fields.payment_method') }}</label>
+                <select class="form-control select2 {{ $errors->has('payment_method') ? 'is-invalid' : '' }}" name="payment_method_id" id="payment_method_id">
+                    @foreach($payment_methods as $id => $entry)
+                        <option value="{{ $id }}" {{ old('payment_method_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('payment_method'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('payment_method') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.transactionx.fields.payment_method_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="site_id">{{ trans('cruds.transactionx.fields.site') }}</label>
+                <select class="form-control select2 {{ $errors->has('site') ? 'is-invalid' : '' }}" name="site_id" id="site_id">
+                    @foreach($sites as $id => $entry)
+                        <option value="{{ $id }}" {{ old('site_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('site'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('site') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.transactionx.fields.site_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="client_id">{{ trans('cruds.transactionx.fields.client') }}</label>
+                <select class="form-control select2 {{ $errors->has('client') ? 'is-invalid' : '' }}" name="client_id" id="client_id">
+                    @foreach($clients as $id => $entry)
+                        <option value="{{ $id }}" {{ old('client_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('client'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('client') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.transactionx.fields.client_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>
