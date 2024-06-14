@@ -38,6 +38,11 @@ class ClientSite extends Model
         return $this->hasMany(ClientSiteToken::class, 'client_site_id', 'id');
     }
 
+    public function siteTransactionxes()
+    {
+        return $this->hasMany(Transactionx::class, 'site_id', 'id');
+    }
+
     public function client()
     {
         return $this->belongsTo(Client::class, 'client_id');

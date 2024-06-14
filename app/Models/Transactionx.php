@@ -36,6 +36,9 @@ class Transactionx extends Model
         'amount_net',
         'date',
         'payer_id',
+        'payment_method_id',
+        'site_id',
+        'client_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -59,5 +62,20 @@ class Transactionx extends Model
     public function payer()
     {
         return $this->belongsTo(Payer::class, 'payer_id');
+    }
+
+    public function payment_method()
+    {
+        return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
+    }
+
+    public function site()
+    {
+        return $this->belongsTo(ClientSite::class, 'site_id');
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class, 'client_id');
     }
 }

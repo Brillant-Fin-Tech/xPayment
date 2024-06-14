@@ -37,6 +37,11 @@ class PaymentMethod extends Model
         return $this->hasMany(ClientPaymentMethod::class, 'payment_method_id', 'id');
     }
 
+    public function paymentMethodTransactionxes()
+    {
+        return $this->hasMany(Transactionx::class, 'payment_method_id', 'id');
+    }
+
     public function paymentMethodClientSites()
     {
         return $this->belongsToMany(ClientSite::class);
