@@ -46,6 +46,15 @@
                         {{ trans('cruds.transactionx.fields.payer') }}
                     </th>
                     <th>
+                        {{ trans('cruds.transactionx.fields.payment_method') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.transactionx.fields.site') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.transactionx.fields.client') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -83,6 +92,30 @@
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($payers as $key => $item)
                                 <option value="{{ $item->first_name }}">{{ $item->first_name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($payment_methods as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($client_sites as $key => $item)
+                                <option value="{{ $item->domain }}">{{ $item->domain }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($clients as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -149,6 +182,9 @@
 { data: 'amount_net', name: 'amount_net' },
 { data: 'date', name: 'date' },
 { data: 'payer_first_name', name: 'payer.first_name' },
+{ data: 'payment_method_name', name: 'payment_method.name' },
+{ data: 'site_domain', name: 'site.domain' },
+{ data: 'client_name', name: 'client.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

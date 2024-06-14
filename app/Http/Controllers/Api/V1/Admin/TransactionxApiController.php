@@ -17,7 +17,7 @@ class TransactionxApiController extends Controller
     {
         abort_if(Gate::denies('transactionx_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new TransactionxResource(Transactionx::with(['payer'])->get());
+        return new TransactionxResource(Transactionx::with(['payer', 'payment_method', 'site', 'client'])->get());
     }
 
     public function store(StoreTransactionxRequest $request)
@@ -33,7 +33,7 @@ class TransactionxApiController extends Controller
     {
         abort_if(Gate::denies('transactionx_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new TransactionxResource($transactionx->load(['payer']));
+        return new TransactionxResource($transactionx->load(['payer', 'payment_method', 'site', 'client']));
     }
 
     public function update(UpdateTransactionxRequest $request, Transactionx $transactionx)
