@@ -9,7 +9,8 @@
     <div class="card-body">
         <form method="POST" action="{{ route("panel.client-payment-methods.store") }}" enctype="multipart/form-data">
             @csrf
-            <input  name="client_id" value="{{ request()->input('client') }}" type="hidden">
+            <input name="client_id" value="{{ request()->input('client_id') }}">
+
             <div class="form-group">
                 <label class="required" for="payment_method_id">{{ trans('cruds.clientPaymentMethod.fields.payment_method') }}</label>
                 <select class="form-control select2 {{ $errors->has('payment_method') ? 'is-invalid' : '' }}" name="payment_method_id" id="payment_method_id" required>
@@ -26,7 +27,7 @@
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
-                    {{ trans('global.add') }}
+                    {{ trans('global.save') }}
                 </button>
             </div>
         </form>

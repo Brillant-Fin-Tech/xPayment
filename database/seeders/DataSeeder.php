@@ -6,9 +6,12 @@ use App\Models\Client;
 use App\Models\ClientPaymentMethod;
 use App\Models\ClientSite;
 use App\Models\ClientSitePaymentMethod;
+use App\Models\ClientSiteToken;
 use App\Models\PaymentMethod;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class DataSeeder extends Seeder
 {
@@ -37,31 +40,53 @@ class DataSeeder extends Seeder
 
 
         Client::truncate();
+        User::truncate();
+        $users = [
+            [
+                'id'             => 1,
+                'name'           => 'Admin',
+                'email'          => 'admin@admin.com',
+                'password'       => bcrypt('password'),
+                'remember_token' => null,
+            ],
+        ];
+
+        User::insert($users);
 
         $clients = [
             [
                 'id' => 1,
                 'name' => 'Client 1',
-                'domain' => "abc.com"
+                'email' => 'client1@client.com',
             ],
             [
                 'id' => 2,
                 'name' => 'Client 2',
-                'domain' => "xxx.com"
+                'email' => 'client2@client.com',
             ],
             [
                 'id' => 3,
                 'name' => 'Client 3',
-                'domain' => "123123.com"
+                'email' => 'client3@client.com',
             ],
             [
                 'id' => 4,
                 'name' => 'Client 4',
-                'domain' => "qweqwe.com"
+                'email' => 'client4@client.com',
             ],
         ];
+        foreach ($clients as $client) {
+            $added = Client::create([
+                "name" => $client['name'],
+            ]);
 
-        Client::insert($clients);
+            User::create([
+                'name'=>$client["name"],
+                'email'=>$client["email"],
+                'password'=>bcrypt('password'),
+                'client_id'=>$added->id,
+            ]);
+        }
 
 
         ClientPaymentMethod::truncate();
@@ -97,6 +122,7 @@ class DataSeeder extends Seeder
 
 
         ClientSite::truncate();
+        ClientSiteToken::truncate();
 
         $ClientSites = [
             [
@@ -130,31 +156,16 @@ class DataSeeder extends Seeder
                 'client_id' => 4,
             ],
         ];
+        foreach ($ClientSites as $ClientSite) {
+            $added = ClientSite::create($ClientSite);
+            $added->payment_methods()->sync(ClientPaymentMethod::where("client_id", $added->client_id)->pluck("payment_method_id"));
+            $added->clientSiteClientSiteTokens()->create([
+                'token'=>Str::random(60),
+                'expires_at'=>"2030-01-01 00:00:00",
+                'is_active'=>1
+            ]);
+        }
 
-        ClientSite::insert($ClientSites);
-
-
-        ClientSitePaymentMethod::truncate();
-
-        $ClientSitePaymentMethods = [
-            [
-                'id' => 1,
-                'client_site_id' => 1,
-                'client_payment_method_id' => 1,
-            ],
-            [
-                'id' => 2,
-                'client_site_id' => 1,
-                'client_payment_method_id' => 2,
-            ],
-            [
-                'id' => 3,
-                'client_site_id' => 2,
-                'client_payment_method_id' => 1,
-            ],
-        ];
-
-        ClientSitePaymentMethod::insert($ClientSitePaymentMethods);
 
         DB::statement("SET foreign_key_checks=1");
 

@@ -26,7 +26,7 @@
                 <ul class="c-sidebar-nav-dropdown-items">
                     @can('permission_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("panel.permissions.index") }}" class="c-sidebar-nav-link {{ request()->is("anel/permissions") || request()->is("panel/permissions/*") ? "c-active" : "" }}">
+                            <a href="{{ route("panel.permissions.index") }}" class="c-sidebar-nav-link {{ request()->is("panel/permissions") || request()->is("panel/permissions/*") ? "c-active" : "" }}">
                                 <i class="fa-fw fas fa-unlock-alt c-sidebar-nav-icon">
 
                                 </i>
@@ -46,7 +46,7 @@
                     @endcan
                     @can('user_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("panel.users.index") }}" class="c-sidebar-nav-link {{ request()->is("panel/users") || request()->is("anel/users/*") ? "c-active" : "" }}">
+                            <a href="{{ route("panel.users.index") }}" class="c-sidebar-nav-link {{ request()->is("panel/users") || request()->is("panel/users/*") ? "c-active" : "" }}">
                                 <i class="fa-fw fas fa-user c-sidebar-nav-icon">
 
                                 </i>
@@ -66,7 +66,7 @@
                     @endcan
                     @can('user_alert_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("panel.user-alerts.index") }}" class="c-sidebar-nav-link {{ request()->is("anel/user-alerts") || request()->is("panel/user-alerts/*") ? "c-active" : "" }}">
+                            <a href="{{ route("panel.user-alerts.index") }}" class="c-sidebar-nav-link {{ request()->is("panel/user-alerts") || request()->is("panel/user-alerts/*") ? "c-active" : "" }}">
                                 <i class="fa-fw fas fa-bell c-sidebar-nav-icon">
 
                                 </i>
@@ -110,7 +110,7 @@
             </li>
         @endcan
         @can('client_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("panel/clients*") ? "c-show" : "" }} {{ request()->is("panel/client-payment-methods*") ? "c-show" : "" }} {{ request()->is("panel/client-sites*") ? "c-show" : "" }} {{ request()->is("panel/client-site-payment-methods*") ? "c-show" : "" }} {{ request()->is("panel/client-site-tokens*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("panel/clients*") ? "c-show" : "" }} {{ request()->is("panel/client-payment-methods*") ? "c-show" : "" }} {{ request()->is("panel/client-sites*") ? "c-show" : "" }} {{ request()->is("panel/client-site-tokens*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
 
@@ -128,40 +128,21 @@
                             </a>
                         </li>
                     @endcan
-                    @can('client_site_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("panel.client-sites.index") }}" class="c-sidebar-nav-link {{ request()->is("panel/client-sites") || request()->is("panel/client-sites/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
 
-                                </i>
-                                {{ trans('cruds.clientSite.title') }}
-                            </a>
-                        </li>
-                    @endcan
                 </ul>
             </li>
         @endcan
-        @can('transaction_access')
+        @can('transactionx_access')
             <li class="c-sidebar-nav-item">
-                <a href="{{ route("panel.transactions.index") }}" class="c-sidebar-nav-link {{ request()->is("panel/transactions") || request()->is("panel/transactions/*") ? "c-active" : "" }}">
+                <a href="{{ route("panel.transactionxes.index") }}" class="c-sidebar-nav-link {{ request()->is("panel/transactionxes") || request()->is("panel/transactionxes/*") ? "c-active" : "" }}">
                     <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
 
                     </i>
-                    {{ trans('cruds.transaction.title') }}
+                    {{ trans('cruds.transactionx.title') }}
                 </a>
             </li>
         @endcan
-        @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
-            @can('profile_password_edit')
-                <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link {{ request()->is('profile/password') || request()->is('profile/password/*') ? 'c-active' : '' }}" href="{{ route('profile.password.edit') }}">
-                        <i class="fa-fw fas fa-key c-sidebar-nav-icon">
-                        </i>
-                        {{ trans('global.change_password') }}
-                    </a>
-                </li>
-            @endcan
-        @endif
+
         <li class="c-sidebar-nav-item">
             <a href="#" class="c-sidebar-nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                 <i class="c-sidebar-nav-icon fas fa-fw fa-sign-out-alt">

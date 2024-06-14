@@ -87,7 +87,7 @@ class PaymentMethodController extends Controller
     {
         abort_if(Gate::denies('payment_method_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $paymentMethod->load('paymentMethodClientPaymentMethods');
+        $paymentMethod->load('paymentMethodClientPaymentMethods', 'paymentMethodClientSites');
 
         return view('panel.paymentMethods.show', compact('paymentMethod'));
     }

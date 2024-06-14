@@ -19,7 +19,6 @@ class StoreClientSiteTokenRequest extends FormRequest
         return [
             'token' => [
                 'string',
-                'required',
                 'unique:client_site_tokens',
             ],
             'expires_at' => [

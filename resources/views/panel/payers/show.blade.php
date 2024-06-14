@@ -72,14 +72,14 @@
     </div>
     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="#payer_transactions" role="tab" data-toggle="tab">
-                {{ trans('cruds.transaction.title') }}
+            <a class="nav-link" href="#payer_transactionxes" role="tab" data-toggle="tab">
+                {{ trans('cruds.transactionx.title') }}
             </a>
         </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="payer_transactions">
-            @includeIf('panel.payers.relationships.payerTransactions', ['transactions' => $payer->payerTransactions])
+        <div class="tab-pane" role="tabpanel" id="payer_transactionxes">
+            @includeIf('panel.payers.relationships.payerTransactionxes', ['transactionxes' => $payer->payerTransactionxes])
         </div>
     </div>
 </div>

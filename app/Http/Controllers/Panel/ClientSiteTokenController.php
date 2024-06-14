@@ -10,6 +10,7 @@ use App\Models\ClientSite;
 use App\Models\ClientSiteToken;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -76,9 +77,11 @@ class ClientSiteTokenController extends Controller
 
     public function store(StoreClientSiteTokenRequest $request)
     {
+        $request["token"] =  Str::random(60);
+
         $clientSiteToken = ClientSiteToken::create($request->all());
 
-        return redirect()->route('panel.client-site-tokens.index');
+        return redirect()->route('panel.client-sites.show',$request->client_site_id);
     }
 
     public function edit(ClientSiteToken $clientSiteToken)

@@ -28,9 +28,9 @@ class ClientPaymentMethodController extends Controller
             $table->addColumn('actions', '&nbsp;');
 
             $table->editColumn('actions', function ($row) {
-                $viewGate = 'client_payment_method_show';
-                $editGate = 'client_payment_method_edit';
-                $deleteGate = 'client_payment_method_delete';
+                $viewGate      = 'client_payment_method_show';
+                $editGate      = 'client_payment_method_edit';
+                $deleteGate    = 'client_payment_method_delete';
                 $crudRoutePart = 'client-payment-methods';
 
                 return view('panel.partials.datatablesActions', compact(
@@ -61,7 +61,7 @@ class ClientPaymentMethodController extends Controller
             return $table->make(true);
         }
 
-        $clients = Client::get();
+        $clients         = Client::get();
         $payment_methods = PaymentMethod::get();
 
         return view('panel.clientPaymentMethods.index', compact('clients', 'payment_methods'));
@@ -81,6 +81,8 @@ class ClientPaymentMethodController extends Controller
     public function store(StoreClientPaymentMethodRequest $request)
     {
         if (!ClientPaymentMethod::where("client_id", $request->client_id)->where("payment_method_id", $request->payment_method_id)->exists()) {
+            $paymentMethod = PaymentMethod::where("id",$request->payment_method_id)->firstOrFail();
+            $request["name"] = $paymentMethod->name;
             $clientPaymentMethod = ClientPaymentMethod::create($request->all());
         }
         return redirect()->route('panel.clients.show', $request->client_id);
