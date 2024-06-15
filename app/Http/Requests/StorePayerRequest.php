@@ -11,7 +11,6 @@ class StorePayerRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('payer_create');
     }
 
     public function rules()
