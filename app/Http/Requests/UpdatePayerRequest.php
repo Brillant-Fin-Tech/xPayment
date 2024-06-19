@@ -33,6 +33,10 @@ class UpdatePayerRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'email' => [
+                'string',
+                'nullable',
+            ],
         ];
     }
 }

@@ -248,6 +248,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 60,
+                'title' => 'payer_site_create',
+            ],
+            [
+                'id'    => 61,
+                'title' => 'payer_site_edit',
+            ],
+            [
+                'id'    => 62,
+                'title' => 'payer_site_show',
+            ],
+            [
+                'id'    => 63,
+                'title' => 'payer_site_delete',
+            ],
+            [
+                'id'    => 64,
+                'title' => 'payer_site_access',
+            ],
+            [
+                'id'    => 65,
                 'title' => 'profile_password_edit',
             ],
         ];

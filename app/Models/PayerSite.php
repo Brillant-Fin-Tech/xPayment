@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PaymentMethod extends Model
+class PayerSite extends Model
 {
     use SoftDeletes, Auditable, HasFactory;
 
-    public $table = 'payment_methods';
+    public $table = 'payer_sites';
 
     protected $dates = [
         'created_at',
@@ -21,7 +21,17 @@ class PaymentMethod extends Model
     ];
 
     protected $fillable = [
-        'name',
+        'currency_code',
+        'wallet_address',
+        'base_currency_code',
+        'email',
+        'phone',
+        'customer_kyc',
+        'external_customer',
+        'response_url',
+        'payer_id',
+        'site_id',
+        'payment_method_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -32,23 +42,18 @@ class PaymentMethod extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
-    public function paymentMethodClientPaymentMethods()
+    public function payer()
     {
-        return $this->hasMany(ClientPaymentMethod::class, 'payment_method_id', 'id');
+        return $this->belongsTo(Payer::class, 'payer_id');
     }
 
-    public function paymentMethodTransactionxes()
+    public function site()
     {
-        return $this->hasMany(Transactionx::class, 'payment_method_id', 'id');
+        return $this->belongsTo(ClientSite::class, 'site_id');
     }
 
-    public function paymentMethodPayerSites()
+    public function payment_method()
     {
-        return $this->hasMany(PayerSite::class, 'payment_method_id', 'id');
-    }
-
-    public function paymentMethodClientSites()
-    {
-        return $this->belongsToMany(ClientSite::class);
+        return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
     }
 }

@@ -88,7 +88,7 @@
             </li>
         @endcan
         @can('payer_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/payers*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/payers*") ? "c-show" : "" }} {{ request()->is("admin/payer-sites*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
 
@@ -103,6 +103,16 @@
 
                                 </i>
                                 {{ trans('cruds.payer.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('payer_site_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.payer-sites.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/payer-sites") || request()->is("admin/payer-sites/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.payerSite.title') }}
                             </a>
                         </li>
                     @endcan
