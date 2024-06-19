@@ -1,43 +1,61 @@
 @extends('layouts.panel')
 @section('content')
-@can('payer_create')
+@can('payer_site_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('panel.payers.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.payer.title_singular') }}
+            <a class="btn btn-success" href="{{ route('panel.payer-sites.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.payerSite.title_singular') }}
             </a>
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.payer.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.payerSite.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Payer">
+        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-PayerSite">
             <thead>
                 <tr>
                     <th width="10">
 
                     </th>
                     <th>
-                        {{ trans('cruds.payer.fields.id') }}
+                        {{ trans('cruds.payerSite.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.payer.fields.first_name') }}
+                        {{ trans('cruds.payerSite.fields.currency_code') }}
                     </th>
                     <th>
-                        {{ trans('cruds.payer.fields.last_name') }}
+                        {{ trans('cruds.payerSite.fields.wallet_address') }}
                     </th>
                     <th>
-                        {{ trans('cruds.payer.fields.phone') }}
+                        {{ trans('cruds.payerSite.fields.base_currency_code') }}
                     </th>
                     <th>
-                        {{ trans('cruds.payer.fields.sumsub_token') }}
+                        {{ trans('cruds.payerSite.fields.email') }}
                     </th>
                     <th>
-                        {{ trans('cruds.payer.fields.email') }}
+                        {{ trans('cruds.payerSite.fields.phone') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.payerSite.fields.customer_kyc') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.payerSite.fields.external_customer') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.payerSite.fields.response_url') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.payerSite.fields.payer') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.payerSite.fields.site') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.payerSite.fields.payment_method') }}
                     </th>
                     <th>
                         &nbsp;
@@ -65,6 +83,39 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($payers as $key => $item)
+                                <option value="{{ $item->first_name }}">{{ $item->first_name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($client_sites as $key => $item)
+                                <option value="{{ $item->domain }}">{{ $item->domain }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($payment_methods as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
                     </td>
                 </tr>
             </thead>
@@ -80,11 +131,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('payer_delete')
+@can('payer_site_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('panel.payers.massDestroy') }}",
+    url: "{{ route('panel.payer-sites.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
@@ -116,22 +167,28 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('panel.payers.index') }}",
+    ajax: "{{ route('panel.payer-sites.index') }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
-{ data: 'first_name', name: 'first_name' },
-{ data: 'last_name', name: 'last_name' },
-{ data: 'phone', name: 'phone' },
-{ data: 'sumsub_token', name: 'sumsub_token' },
+{ data: 'currency_code', name: 'currency_code' },
+{ data: 'wallet_address', name: 'wallet_address' },
+{ data: 'base_currency_code', name: 'base_currency_code' },
 { data: 'email', name: 'email' },
+{ data: 'phone', name: 'phone' },
+{ data: 'customer_kyc', name: 'customer_kyc' },
+{ data: 'external_customer', name: 'external_customer' },
+{ data: 'response_url', name: 'response_url' },
+{ data: 'payer_first_name', name: 'payer.first_name' },
+{ data: 'site_domain', name: 'site.domain' },
+{ data: 'payment_method_name', name: 'payment_method.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   };
-  let table = $('.datatable-Payer').DataTable(dtOverrideGlobals);
+  let table = $('.datatable-PayerSite').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

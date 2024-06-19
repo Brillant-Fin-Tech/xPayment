@@ -31,7 +31,7 @@ class PayerController extends Controller
                 $deleteGate    = 'payer_delete';
                 $crudRoutePart = 'payers';
 
-                return view('panel.partials.datatablesActions', compact(
+                return view('partials.datatablesActions', compact(
                     'viewGate',
                     'editGate',
                     'deleteGate',
@@ -54,6 +54,9 @@ class PayerController extends Controller
             });
             $table->editColumn('sumsub_token', function ($row) {
                 return $row->sumsub_token ? $row->sumsub_token : '';
+            });
+            $table->editColumn('email', function ($row) {
+                return $row->email ? $row->email : '';
             });
 
             $table->rawColumns(['actions', 'placeholder']);

@@ -55,6 +55,14 @@
                             {{ $payer->sumsub_token }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.payer.fields.email') }}
+                        </th>
+                        <td>
+                            {{ $payer->email }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
@@ -76,10 +84,18 @@
                 {{ trans('cruds.transactionx.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#payer_payer_sites" role="tab" data-toggle="tab">
+                {{ trans('cruds.payerSite.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="payer_transactionxes">
             @includeIf('panel.payers.relationships.payerTransactionxes', ['transactionxes' => $payer->payerTransactionxes])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="payer_payer_sites">
+            @includeIf('panel.payers.relationships.payerPayerSites', ['payerSites' => $payer->payerPayerSites])
         </div>
     </div>
 </div>
