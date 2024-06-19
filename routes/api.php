@@ -1,5 +1,4 @@
 <?php
-Route::post('login', 'Api\V1\AuthController@login');
 
 Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', 'middleware' => ['auth:sanctum']], function () {
     // Permissions
@@ -31,4 +30,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Transactionx
     Route::apiResource('transactionxes', 'TransactionxApiController');
+
+    // Payer Site
+    Route::apiResource('payer-sites', 'PayerSiteApiController');
 });

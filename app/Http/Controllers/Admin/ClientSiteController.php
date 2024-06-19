@@ -116,7 +116,7 @@ class ClientSiteController extends Controller
     {
         abort_if(Gate::denies('client_site_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clientSite->load('client', 'payment_methods', 'clientSiteClientSiteTokens', 'siteTransactionxes');
+        $clientSite->load('client', 'payment_methods', 'clientSiteClientSiteTokens', 'siteTransactionxes', 'sitePayerSites');
 
         return view('admin.clientSites.show', compact('clientSite'));
     }

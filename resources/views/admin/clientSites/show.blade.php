@@ -75,6 +75,11 @@
                 {{ trans('cruds.transactionx.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#site_payer_sites" role="tab" data-toggle="tab">
+                {{ trans('cruds.payerSite.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="client_site_client_site_tokens">
@@ -82,6 +87,9 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="site_transactionxes">
             @includeIf('admin.clientSites.relationships.siteTransactionxes', ['transactionxes' => $clientSite->siteTransactionxes])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="site_payer_sites">
+            @includeIf('admin.clientSites.relationships.sitePayerSites', ['payerSites' => $clientSite->sitePayerSites])
         </div>
     </div>
 </div>

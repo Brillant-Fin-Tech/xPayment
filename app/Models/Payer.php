@@ -25,6 +25,7 @@ class Payer extends Model
         'last_name',
         'phone',
         'sumsub_token',
+        'email',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -38,5 +39,10 @@ class Payer extends Model
     public function payerTransactionxes()
     {
         return $this->hasMany(Transactionx::class, 'payer_id', 'id');
+    }
+
+    public function payerPayerSites()
+    {
+        return $this->hasMany(PayerSite::class, 'payer_id', 'id');
     }
 }

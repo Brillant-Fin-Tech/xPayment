@@ -33,6 +33,10 @@ class StorePayerRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'email' => [
+                'string',
+                'nullable',
+            ],
         ];
     }
 }

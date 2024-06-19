@@ -55,6 +55,9 @@ class PayerController extends Controller
             $table->editColumn('sumsub_token', function ($row) {
                 return $row->sumsub_token ? $row->sumsub_token : '';
             });
+            $table->editColumn('email', function ($row) {
+                return $row->email ? $row->email : '';
+            });
 
             $table->rawColumns(['actions', 'placeholder']);
 
@@ -96,7 +99,7 @@ class PayerController extends Controller
     {
         abort_if(Gate::denies('payer_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $payer->load('payerTransactionxes');
+        $payer->load('payerTransactionxes', 'payerPayerSites');
 
         return view('admin.payers.show', compact('payer'));
     }

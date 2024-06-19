@@ -43,6 +43,11 @@ class ClientSite extends Model
         return $this->hasMany(Transactionx::class, 'site_id', 'id');
     }
 
+    public function sitePayerSites()
+    {
+        return $this->hasMany(PayerSite::class, 'site_id', 'id');
+    }
+
     public function client()
     {
         return $this->belongsTo(Client::class, 'client_id');

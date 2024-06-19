@@ -58,6 +58,11 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="#payment_method_payer_sites" role="tab" data-toggle="tab">
+                {{ trans('cruds.payerSite.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#payment_method_client_sites" role="tab" data-toggle="tab">
                 {{ trans('cruds.clientSite.title') }}
             </a>
@@ -69,6 +74,9 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="payment_method_transactionxes">
             @includeIf('admin.paymentMethods.relationships.paymentMethodTransactionxes', ['transactionxes' => $paymentMethod->paymentMethodTransactionxes])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="payment_method_payer_sites">
+            @includeIf('admin.paymentMethods.relationships.paymentMethodPayerSites', ['payerSites' => $paymentMethod->paymentMethodPayerSites])
         </div>
         <div class="tab-pane" role="tabpanel" id="payment_method_client_sites">
             @includeIf('admin.paymentMethods.relationships.paymentMethodClientSites', ['clientSites' => $paymentMethod->paymentMethodClientSites])

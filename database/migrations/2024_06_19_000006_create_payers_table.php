@@ -14,6 +14,7 @@ class CreatePayersTable extends Migration
             $table->string('last_name');
             $table->string('phone')->nullable();
             $table->string('sumsub_token')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
