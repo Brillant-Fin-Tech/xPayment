@@ -10,6 +10,13 @@ Route::get('/home', function () {
 });
 
 Auth::routes(['register' => false]);
+
+
+Route::group(['prefix' => 'client', 'as' => 'client.', 'namespace' => 'Client'], function () {
+    Route::get('/', 'PaymentController@index')->name('home');
+});
+
+
 Route::group(['prefix' => 'panel', 'as' => 'panel.', 'namespace' => 'Panel', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
     // Permissions
